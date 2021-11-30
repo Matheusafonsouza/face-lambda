@@ -28,5 +28,18 @@ def detect_face():
     return faces_ids
 
 
+def compare_faces(faces):
+    result = list()
+    for face in faces:
+        result.append(client.search_faces(
+            CollectionId='faces',
+            FaceId=face,
+            FaceMatchThreshold=80,
+            MaxFaces=10
+        ))
+    return result
+
+
 detected_faces = detect_face()
-print(detected_faces)
+compared_faces = compare_faces(detected_faces)
+print(json.dumps(compared_faces, indent=4))
