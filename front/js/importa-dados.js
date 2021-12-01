@@ -1,41 +1,41 @@
 
-$.ajax(
-  { url: 'https://s3.amazonaws.com/fa-site/dados.json',
-   dataType: 'json',
-   crossDomain: true,
-   success: function (dados) {
-      console.log(dados);
-      montaTabela(dados);
-      }
-  })
-
-
-  function montaTabela(dados) {
-
-    
-    for (var dados of dados) {
-      var trTabela = document.createElement("tr");
-
-      var tdInfoFoto = document.createElement("td");
-      var tdInfoNome = document.createElement("td");
-      var tdInfoFaceMatch = document.createElement("td");
-      
-
-      tdInfoNome.textContent = dados.nome;
-      tdInfoFaceMatch.textContent = dados.faceMatch;
-      tdInfoFoto = document.createElement("img");
-      tdInfoFoto.height = 100;
-      tdInfoFoto.width = 68;
-      tdInfoFoto.src = 'https://s3.amazonaws.com/fa-imagens/' + dados.nome + '.png';
-     
-
-
-      trTabela.appendChild(tdInfoFoto);
-      trTabela.appendChild(tdInfoNome);
-      trTabela.appendChild(tdInfoFaceMatch);
-      
-      var tabela = document.querySelector("#tabela-site");
-
-      tabela.appendChild(trTabela);
-    }
+$.ajax({
+  url: 'https://s3.amazonaws.com/fa-afonso-website/data.json',
+  dataType: 'json',
+  crossDomain: true,
+  success: function (data) {
+    console.log(data);
+    mountTable(data);
   }
+})
+
+
+function mountTable(data) {
+
+
+  for (var d of data) {
+    var trTable = document.createElement("tr");
+
+    var tdInfoPhoto = document.createElement("td");
+    var tdInfoName = document.createElement("td");
+    var tdInfoFaceMatch = document.createElement("td");
+
+
+    tdInfoName.textContent = d.name;
+    tdInfoFaceMatch.textContent = d.similarity;
+    tdInfoPhoto = document.createElement("img");
+    tdInfoPhoto.height = 100;
+    tdInfoPhoto.width = 68;
+    tdInfoPhoto.src = 'https://s3.amazonaws.com/fa-images/' + d.nome + '.png';
+
+
+
+    trTable.appendChild(tdInfoPhoto);
+    trTable.appendChild(tdInfoName);
+    trTable.appendChild(tdInfoFaceMatch);
+
+    var table = document.querySelector("#tabela-site");
+
+    table.appendChild(trTable);
+  }
+}
