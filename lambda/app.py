@@ -27,23 +27,16 @@ class FaceRecognition:
             ))
         )
 
-        faces_ids = list()
         face_records = faces.get('FaceRecords')
-        for face in face_records:
-            real_face = face.get('Face')
-            faces_ids.append(real_face.get('FaceId'))
-
-        return faces_ids
+        return [face.get('Face').get('FaceId') for face in face_records]
 
     def compare_faces(self):
-        result = list()
-        for face in self.faces:
-            result.append(self.rck.search_faces(
-                CollectionId='faces',
-                FaceId=face,
-                FaceMatchThreshold=80,
-                MaxFaces=10
-            ))
+        result = [self.rck.search_faces(
+            CollectionId='faces',
+            FaceId=face,
+            FaceMatchThreshold=80,
+            MaxFaces=10
+        ) for face in self.faces]
         return self.parse_data(result)
 
     def parse_data(self, detected_faces):
