@@ -40,6 +40,21 @@ def compare_faces(faces):
     return result
 
 
+def parse_data(detected_faces):
+    parsed_response = list()
+    for face in detected_faces:
+        match = face.get('FaceMatches')
+        if not match:
+            continue
+        parsed_response.append(dict(
+            name=match[0].get('Face').get('ExternalImageId'),
+            face_id=match[0].get('Face').get('FaceId'),
+            similarity=round(match[0].get('Similarity'), 2)
+        ))
+    return parsed_response
+
+
 detected_faces = detect_face()
 compared_faces = compare_faces(detected_faces)
-print(json.dumps(compared_faces, indent=4))
+parsed_compared_faces = parse_data(compared_faces)
+print(json.dumps(parsed_compared_faces, indent=4))
