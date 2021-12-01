@@ -2,6 +2,7 @@ import json
 import boto3 as boto
 
 BUCKET = 'fa-afonso-images'
+WEBSITE_BUCKET = 'fa-afonso-website'
 REGION = 'us-east-1'
 
 s3 = boto.resource('s3')
@@ -54,7 +55,13 @@ def parse_data(detected_faces):
     return parsed_response
 
 
+def publish_data(parsed_data):
+    file = s3.Object(WEBSITE_BUCKET, 'data.json')
+    file.put(Body=json.dumps(parsed_data))
+
+
 detected_faces = detect_face()
 compared_faces = compare_faces(detected_faces)
 parsed_compared_faces = parse_data(compared_faces)
 print(json.dumps(parsed_compared_faces, indent=4))
+publish_data(parsed_compared_faces)

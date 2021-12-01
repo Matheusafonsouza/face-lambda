@@ -26,9 +26,7 @@ function mountTable(data) {
     tdInfoPhoto = document.createElement("img");
     tdInfoPhoto.height = 100;
     tdInfoPhoto.width = 68;
-    tdInfoPhoto.src = 'https://s3.amazonaws.com/fa-images/' + d.nome + '.png';
-
-
+    tdInfoPhoto.src = 'https://s3.amazonaws.com/fa-afonso-images/' + d.name + '.jpg';
 
     trTable.appendChild(tdInfoPhoto);
     trTable.appendChild(tdInfoName);
