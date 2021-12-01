@@ -60,8 +60,16 @@ def publish_data(parsed_data):
     file.put(Body=json.dumps(parsed_data))
 
 
+def remove_files(detected_faces):
+    client.delete_faces(
+        CollectionId='faces',
+        FaceIds=detected_faces
+    )
+
+
 detected_faces = detect_face()
 compared_faces = compare_faces(detected_faces)
 parsed_compared_faces = parse_data(compared_faces)
 print(json.dumps(parsed_compared_faces, indent=4))
 publish_data(parsed_compared_faces)
+remove_files(detected_faces)
