@@ -64,4 +64,5 @@ class FaceRecognition:
         )
 
 
-FaceRecognition()
+def main(event, context):
+    FaceRecognition()
